@@ -53,20 +53,20 @@ function clear() {
 function nextGeneration() {
   const nextGenerationCanvas = new Array(cellsY);
 
-  for (let i = 0; i < cellsY; i++) {
-    nextGenerationCanvas[i] = new Array(cellsX);
+  for (let y = 0; y < cellsY; y++) {
+    nextGenerationCanvas[y] = new Array(cellsX);
 
-    for (let j = 0; j < cellsX; j++) {
-      let neighbours = countNeighbours(i, j);
-      nextGenerationCanvas[i][j] = canvas[i][j];
+    for (let x = 0; x < cellsX; x++) {
+      let neighbours = countNeighbours(y, x);
+      nextGenerationCanvas[y][x] = canvas[y][x];
 
-      if (canvas[i][j]) {
+      if (canvas[y][x]) {
         if (neighbours === 2 || neighbours === 3)
-          nextGenerationCanvas[i][j] = true;
+          nextGenerationCanvas[y][x] = true;
         if (neighbours < 2 || neighbours > 3)
-          nextGenerationCanvas[i][j] = false;
+          nextGenerationCanvas[y][x] = false;
       } else {
-        if (neighbours === 3) nextGenerationCanvas[i][j] = true;
+        if (neighbours === 3) nextGenerationCanvas[y][x] = true;
       }
     }
   }
@@ -76,11 +76,12 @@ function nextGeneration() {
 
 /**
  * Count the number of neighbours for each
- * cell, based on its coordinates, y(i) and x(j)
+ * cell, based on its coordinates in the canvas(y and x)
  */
 function countNeighbours(cellPositionY, cellPositionX) {
   let count = 0;
 
+  
   for (let y = cellPositionY - 1; y <= cellPositionY + 1; y++) {
     for (let x = cellPositionX - 1; x <= cellPositionX + 1; x++) {
       if (y === cellPositionY && x === cellPositionX) continue;
